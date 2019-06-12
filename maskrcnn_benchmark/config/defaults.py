@@ -3,7 +3,6 @@ import os
 
 from yacs.config import CfgNode as CN
 
-
 # -----------------------------------------------------------------------------
 # Convention about Training / Test specific parameters
 # -----------------------------------------------------------------------------
@@ -35,7 +34,6 @@ _C.MODEL.CLS_AGNOSTIC_BBOX_REG = False
 # path
 _C.MODEL.WEIGHT = ""
 
-
 # -----------------------------------------------------------------------------
 # INPUT
 # -----------------------------------------------------------------------------
@@ -56,7 +54,6 @@ _C.INPUT.PIXEL_MEAN = [102.9801, 115.9465, 122.7717]
 _C.INPUT.PIXEL_STD = [1., 1., 1.]
 # Convert image to BGR format (for Caffe2 models), in range 0-255
 _C.INPUT.TO_BGR255 = True
-
 
 # -----------------------------------------------------------------------------
 # Dataset
@@ -81,7 +78,6 @@ _C.DATALOADER.SIZE_DIVISIBILITY = 0
 # are not batched with portrait images.
 _C.DATALOADER.ASPECT_RATIO_GROUPING = True
 
-
 # ---------------------------------------------------------------------------- #
 # Backbone options
 # ---------------------------------------------------------------------------- #
@@ -97,7 +93,7 @@ _C.MODEL.BACKBONE.CONV_BODY = "R-50-C4"
 _C.MODEL.BACKBONE.FREEZE_CONV_BODY_AT = 2
 # GN for backbone
 _C.MODEL.BACKBONE.USE_GN = False
-
+_C.MODEL.BACKBONE.OUT_CHANNELS = 256 * 4
 
 # ---------------------------------------------------------------------------- #
 # FPN options
@@ -105,7 +101,6 @@ _C.MODEL.BACKBONE.USE_GN = False
 _C.MODEL.FPN = CN()
 _C.MODEL.FPN.USE_GN = False
 _C.MODEL.FPN.USE_RELU = False
-
 
 # ---------------------------------------------------------------------------- #
 # Group Norm options
@@ -117,7 +112,6 @@ _C.MODEL.GROUP_NORM.DIM_PER_GP = -1
 _C.MODEL.GROUP_NORM.NUM_GROUPS = 32
 # GroupNorm's small constant in the denominator
 _C.MODEL.GROUP_NORM.EPSILON = 1e-5
-
 
 # ---------------------------------------------------------------------------- #
 # RPN options
@@ -165,7 +159,6 @@ _C.MODEL.RPN.FPN_POST_NMS_TOP_N_TEST = 2000
 # Custom rpn head, empty to use default conv or separable conv
 _C.MODEL.RPN.RPN_HEAD = "SingleConvRPNHead"
 
-
 # ---------------------------------------------------------------------------- #
 # ROI HEADS options
 # ---------------------------------------------------------------------------- #
@@ -200,7 +193,6 @@ _C.MODEL.ROI_HEADS.NMS = 0.5
 # established for the COCO dataset)
 _C.MODEL.ROI_HEADS.DETECTIONS_PER_IMG = 100
 
-
 _C.MODEL.ROI_BOX_HEAD = CN()
 _C.MODEL.ROI_BOX_HEAD.FEATURE_EXTRACTOR = "ResNet50Conv5ROIFeatureExtractor"
 _C.MODEL.ROI_BOX_HEAD.PREDICTOR = "FastRCNNPredictor"
@@ -216,7 +208,6 @@ _C.MODEL.ROI_BOX_HEAD.USE_GN = False
 _C.MODEL.ROI_BOX_HEAD.DILATION = 1
 _C.MODEL.ROI_BOX_HEAD.CONV_HEAD_DIM = 256
 _C.MODEL.ROI_BOX_HEAD.NUM_STACKED_CONVS = 4
-
 
 _C.MODEL.ROI_MASK_HEAD = CN()
 _C.MODEL.ROI_MASK_HEAD.FEATURE_EXTRACTOR = "ResNet50Conv5ROIFeatureExtractor"
@@ -235,6 +226,11 @@ _C.MODEL.ROI_MASK_HEAD.POSTPROCESS_MASKS_THRESHOLD = 0.5
 _C.MODEL.ROI_MASK_HEAD.DILATION = 1
 # GN
 _C.MODEL.ROI_MASK_HEAD.USE_GN = False
+# ---------------------------------------------------------------------------- #
+# MobileNetV2 options
+# ---------------------------------------------------------------------------- #
+_C.MODEL.MOBILENET = CN()
+_C.MODEL.MOBILENET.OUT_CHANNELS = (320,)
 
 _C.MODEL.ROI_KEYPOINT_HEAD = CN()
 _C.MODEL.ROI_KEYPOINT_HEAD.FEATURE_EXTRACTOR = "KeypointRCNNFeatureExtractor"
@@ -356,7 +352,6 @@ _C.MODEL.RETINANET.INFERENCE_TH = 0.05
 # NMS threshold used in RetinaNet
 _C.MODEL.RETINANET.NMS_TH = 0.4
 
-
 # ---------------------------------------------------------------------------- #
 # FBNet options
 # ---------------------------------------------------------------------------- #
@@ -392,7 +387,6 @@ _C.MODEL.FBNET.MASK_HEAD_STRIDE = 0
 # 0 to use all blocks defined in arch_def
 _C.MODEL.FBNET.RPN_HEAD_BLOCKS = 0
 _C.MODEL.FBNET.RPN_BN_TYPE = ""
-
 
 # ---------------------------------------------------------------------------- #
 # Solver
@@ -434,7 +428,6 @@ _C.TEST.EXPECTED_RESULTS_SIGMA_TOL = 4
 _C.TEST.IMS_PER_BATCH = 8
 # Number of detections per image
 _C.TEST.DETECTIONS_PER_IMG = 100
-
 
 # ---------------------------------------------------------------------------- #
 # Misc options
